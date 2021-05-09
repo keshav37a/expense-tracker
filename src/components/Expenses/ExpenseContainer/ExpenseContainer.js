@@ -1,29 +1,30 @@
 import { useState } from "react";
-import ExpenseItem from "../ExpenseItem/ExpenseItem";
 import NewExpense from "../../NewExpenseContainer/NewExpense/NewExpense";
 import ExpenseFilter from "../ExpenseFilter/ExpenseFilter";
+import ExpenseList from "../ExpenseList/ExpenseList";
 import Card from "../../UI/Card/Card";
 import "./ExpenseContainer.css";
 
 const ExpenseContainer = (props) => {
   const [filterYear, setFilterYear] = useState("");
   const expenses = props.expenses;
-  const handleFormSubmission = props.handleFormSubmission;
+  const onFormSubmission = props.onFormSubmission;
 
   const filterYearHandler = (event) => {
     setFilterYear(event.target.value);
   };
 
+  const filteredExpenses = expenses.filter(
+    (expense) =>
+      !filterYear ||
+      expense.date.toLocaleString(`en-US`, { year: "numeric" }) == filterYear
+  );
+
   return (
     <Card className="expenses">
-      <NewExpense handleFormSubmission={handleFormSubmission} />
+      <NewExpense onFormSubmission={onFormSubmission} />
       <ExpenseFilter onFilterYearSelect={filterYearHandler} />
-      {expenses.map((item) => {
-        const year = item.date.toLocaleString(`en-US`, { year: "numeric" });
-        return !filterYear || filterYear == year ? (
-          <ExpenseItem key={item.id} {...item} />
-        ) : null;
-      })}
+      <ExpenseList expenses={filteredExpenses} />
     </Card>
   );
 };
