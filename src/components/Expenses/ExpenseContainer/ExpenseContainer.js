@@ -2,6 +2,7 @@ import { useState } from "react";
 import NewExpense from "../../NewExpenseContainer/NewExpense/NewExpense";
 import ExpenseFilter from "../ExpenseFilter/ExpenseFilter";
 import ExpenseList from "../ExpenseList/ExpenseList";
+import ExpenseChart from "../ExpenseChart/ExpenseChart";
 import Card from "../../UI/Card/Card";
 import "./ExpenseContainer.css";
 
@@ -24,6 +25,7 @@ const ExpenseContainer = (props) => {
     <Card className="expenses">
       <NewExpense onFormSubmission={onFormSubmission} />
       <ExpenseFilter onFilterYearSelect={filterYearHandler} />
+      <ExpenseChart expenses={filteredExpenses}/>
       <ExpenseList expenses={filteredExpenses} />
     </Card>
   );

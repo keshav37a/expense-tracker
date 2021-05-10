@@ -25,7 +25,7 @@ const ExpenseForm = (props) => {
     event.preventDefault();
     const expenseData = {
       title: title,
-      price: price,
+      price: +price,
       date: new Date(date),
     };
     console.log(expenseData);
